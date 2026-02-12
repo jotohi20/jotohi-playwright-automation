@@ -34,22 +34,6 @@ Page Object Model (POM)
 
 Salesforce Lightning UI
 
-📂 Project Structure
-.
-├── auth/
-│   └── auth.setup.ts          # Login + save session
-├── jotohitest/
-│   ├── lead-crud.spec.ts     # Lead create + update tests
-│   ├── lead-convert.spec.ts  # Lead → Opportunity conversion
-│   └── signup.spec.ts        # Developer signup scenario
-├── pages/
-│   ├── LeadPage.ts
-│   ├── LeadConvertPage.ts
-│   ├── OpportunityPage.ts
-│   └── SignupPage.ts
-├── playwright.config.ts
-├── package.json
-└── README.md
 
 ⚙️ Setup Instructions
 1️⃣ Install dependencies
