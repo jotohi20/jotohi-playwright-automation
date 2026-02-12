@@ -1,23 +1,175 @@
-# 🚀 Playwright Automation Assessment
+📌 Overview
 
-End-to-end UI automation suite built with **Playwright + TypeScript**.
+This project demonstrates end-to-end test automation using Playwright + TypeScript for Salesforce.
 
-This project automates Salesforce flows including:
+It covers:
 
-✅ Lead creation (CRUD)  
-✅ Lead → Opportunity conversion  
-✅ Opportunity validation  
-✅ Auth session handling (storageState)  
-✅ Page Object Model architecture  
+✅ Lead creation
+✅ Lead validation (ID + details)
+✅ Lead status update
+✅ Lead → Opportunity conversion
+✅ Opportunity validations
+✅ Session reuse with storageState (no repeated login)
+✅ Stable sequential execution for Salesforce UI
 
----
+The suite is designed to be:
 
-# 🧰 Tech Stack
+reliable
 
-- Playwright
-- TypeScript
-- Node.js
-- Page Object Model (POM)
-- GitHub
+repeatable
+
+MFA-friendly
+
+easy to run for reviewers
+
+🧰 Tech Stack
+
+Playwright
+
+TypeScript
+
+Node.js
+
+Page Object Model (POM)
+
+Salesforce Lightning UI
+
+📂 Project Structure
+.
+├── auth/
+│   └── auth.setup.ts          # Login + save session
+├── jotohitest/
+│   ├── lead-crud.spec.ts     # Lead create + update tests
+│   ├── lead-convert.spec.ts  # Lead → Opportunity conversion
+│   └── signup.spec.ts        # Developer signup scenario
+├── pages/
+│   ├── LeadPage.ts
+│   ├── LeadConvertPage.ts
+│   ├── OpportunityPage.ts
+│   └── SignupPage.ts
+├── playwright.config.ts
+├── package.json
+└── README.md
+
+⚙️ Setup Instructions
+1️⃣ Install dependencies
+npm install
+
+2️⃣ Install browsers
+npx playwright install
+
+🔐 Authentication (Salesforce Login)
+
+This project uses Playwright storageState to reuse sessions and avoid repeated login.
+
+First time only (create session)
+npx playwright test auth/auth.setup.ts --project=setup
 
 
+Complete login/MFA manually → session will be saved to:
+
+storageState.json
+
+After that
+
+No login required for tests.
+
+▶️ Run Tests
+Run all tests (recommended)
+npx playwright test --project=chromium
+
+Run specific tests
+npx playwright test jotohitest/lead-crud.spec.ts --project=chromium
+npx playwright test jotohitest/lead-convert.spec.ts --project=chromium
+
+🧪 Test Coverage
+✅ Lead CRUD
+
+Create Lead
+
+Validate 18-char ID
+
+Validate details
+
+Update Status
+
+Validate updated Path stage
+
+✅ Lead Conversion
+
+Convert Lead
+
+Create Account + Opportunity
+
+Validate Opportunity page
+
+Validate Account link
+
+Validate Owner
+
+Validate Stage Path
+
+Validate Amount field
+
+✅ Signup
+
+Salesforce Developer signup flow validation
+
+🧠 Key Design Decisions
+Page Object Model (POM)
+
+Improves:
+
+maintainability
+
+reusability
+
+readability
+
+storageState session reuse
+
+Prevents:
+
+repeated login
+
+MFA spam
+
+slow test runs
+
+Sequential execution
+
+Salesforce UI is not parallel-safe, so tests run with:
+
+workers: 1
+
+🚫 Ignored Files
+
+Not committed for security and cleanliness:
+
+storageState.json
+node_modules/
+playwright-report/
+test-results/
+
+💡 Notes for Reviewers
+
+If session expires:
+
+rm storageState.json
+npx playwright test auth/auth.setup.ts --project=setup
+
+
+Then rerun tests.
+
+✅ Expected Result
+
+All tests should pass:
+
+✓ lead-crud
+✓ lead-convert
+✓ signup
+
+👤 Author
+
+Jonas Hipos
+QA Automation Assessment – Playwright + Salesforce
