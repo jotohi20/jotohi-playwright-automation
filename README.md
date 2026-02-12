@@ -20,7 +20,4 @@ This project automates Salesforce flows including:
 - Page Object Model (POM)
 - GitHub
 
----
-
-# 📂 Project Structure
 
