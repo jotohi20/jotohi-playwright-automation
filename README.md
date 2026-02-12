@@ -99,59 +99,6 @@ Validate Amount field
 
 Salesforce Developer signup flow validation
 
-🧠 Key Design Decisions
-Page Object Model (POM)
-
-Improves:
-
-maintainability
-
-reusability
-
-readability
-
-storageState session reuse
-
-Prevents:
-
-repeated login
-
-MFA spam
-
-slow test runs
-
-Sequential execution
-
-Salesforce UI is not parallel-safe, so tests run with:
-
-workers: 1
-
-🚫 Ignored Files
-
-Not committed for security and cleanliness:
-
-storageState.json
-node_modules/
-playwright-report/
-test-results/
-
-💡 Notes for Reviewers
-
-If session expires:
-
-rm storageState.json
-npx playwright test auth/auth.setup.ts --project=setup
-
-
-Then rerun tests.
-
-✅ Expected Result
-
-All tests should pass:
-
-✓ lead-crud
-✓ lead-convert
-✓ signup
 
 👤 Author
 
